@@ -1,7 +1,7 @@
 import { ModeToggle } from "@/components/global/mode-toggle";
 import { UserButton } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
-import Image from "next/image";
+import { BrainCircuit } from "lucide-react";
 import Link from "next/link";
 
 type NavigationProps = {
@@ -10,9 +10,9 @@ type NavigationProps = {
 
 const Navigation = ({ user }: NavigationProps) => {
   return (
-    <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-10">
-      <aside className="flex items-center gap-2">
-        <Image src={"./assets/logo.svg"} width={40} height={40} alt="logo" />
+    <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-20">
+      <aside className="flex items-center gap-1">
+        <BrainCircuit width={30} height={30} className="text-blue-600" />
         <span className="text-xl font-bold"> Nebula.</span>
       </aside>
       <nav className="hidden md:block absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
