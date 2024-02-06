@@ -11,8 +11,8 @@ type NavigationProps = {
 const Navigation = ({ user }: NavigationProps) => {
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-20">
-      <aside className="flex items-center gap-1">
-        <BrainCircuit width={30} height={30} className="text-blue-600" />
+      <aside className="flex items-center gap-0.5">
+        <BrainCircuit width={25} height={25} className="text-blue-600" />
         <span className="text-xl font-bold"> Nebula.</span>
       </aside>
       <nav className="hidden md:block absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
