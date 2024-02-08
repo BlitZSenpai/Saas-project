@@ -33,6 +33,44 @@ export const getAuthUserDetails = async () => {
   return userData;
 };
 
+export const saveActivityLogsNotification = async ({
+  agencyId,
+  description,
+  subaccountId,
+}: {
+  agencyId?: string;
+  description: string;
+  subaccountId?: string;
+}) => {
+  const user = await currentUser();
+
+  let userData;
+  if (!user) {
+    const response = await db.user.findFirst({
+      where: {
+        Agency: {
+          SubAccount: {
+            some: { id: subaccountId },
+          },
+        },
+      },
+    });
+    if (response) {
+      userData = response;
+    }
+  } else {
+    userData = await db.user.findUnique({
+      where: {
+        email: user.emailAddresses[0].emailAddress,
+      },
+    });
+  }
+
+  if (!userData) {
+    throw new Error("Could not find user");
+  }
+};
+
 export const createTeamUser = async (agencyId: string, user: User) => {
   if (user.role === "AGENCY_OWNER") return null;
 
