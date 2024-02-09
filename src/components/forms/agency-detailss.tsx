@@ -5,10 +5,11 @@ import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AlertDialog } from "../ui/alert-dialog";
-import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 
 type AgencyDetailsProps = {
   data: Partial<Agency>;
@@ -47,6 +48,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
       agencyLogo: data.agencyLogo,
     },
   });
+  const isLoading = form.formState.isSubmitting;
 
   const handleSubmit = async () => {};
 
@@ -60,6 +62,24 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
             settings tab.
           </CardDescription>
         </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+              <FormField
+                disabled={isLoading}
+                control={form.control}
+                name="agencyLogo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Agency Logo</FormLabel>
+                    <FormControl>
+                      <FileUpload />
+                    </FormControl>
+                  </FormItem>
+                )}></FormField>
+            </form>
+          </Form>
+        </CardContent>
       </Card>
     </AlertDialog>
   );
