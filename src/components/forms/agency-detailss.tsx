@@ -3,7 +3,7 @@
 import { Agency } from "@prisma/client";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AlertDialog } from "../ui/alert-dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import * as z from "zod";
@@ -49,6 +49,12 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
     },
   });
   const isLoading = form.formState.isSubmitting;
+
+  useEffect(() => {
+    if (data) {
+      form.reset(data);
+    }
+  }, [data]);
 
   const handleSubmit = async () => {};
 
