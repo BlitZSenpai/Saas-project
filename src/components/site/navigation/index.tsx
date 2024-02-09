@@ -10,7 +10,7 @@ type NavigationProps = {
 
 const Navigation = ({ user }: NavigationProps) => {
   return (
-    <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-20">
+    <div className="fixed top-0 right-0 inset-x-0 dark:bg-background/80 left-0 p-4 flex backdrop:blur-xl items-center justify-between z-20">
       <aside className="flex items-center gap-0.5">
         <BrainCircuit width={25} height={25} className="text-blue-600" />
         <span className="text-xl font-bold"> Nebula.</span>
