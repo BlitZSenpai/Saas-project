@@ -1,5 +1,6 @@
-import { FileIcon } from "lucide-react";
+import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
+import { Button } from "../ui/button";
 
 type FileUploadProps = {
   apiEndpoint: "agencyLogo" | "avatar" | "subaccountLogo";
@@ -29,6 +30,10 @@ export const FileUpload = ({ apiEndpoint, onChange, value }: FileUploadProps) =>
             </a>
           </div>
         )}
+        <Button onClick={() => onChange} variant="ghost" type="button">
+          <X className="h-4 w-4" />
+          Remove Logo
+        </Button>
       </div>
     );
   }
