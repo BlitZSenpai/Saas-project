@@ -10,6 +10,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { FileUpload } from "../global/file-upload";
 
 type AgencyDetailsProps = {
   data: Partial<Agency>;
@@ -79,7 +80,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                   <FormItem>
                     <FormLabel>Agency Logo</FormLabel>
                     <FormControl>
-                      <FileUpload />
+                      <FileUpload></FileUpload>
                     </FormControl>
                   </FormItem>
                 )}></FormField>
