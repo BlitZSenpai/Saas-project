@@ -9,8 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "../ui/form";
 import { FileUpload } from "../global/file-upload";
+import { Input } from "../ui/input";
+import { Switch } from "../ui/switch";
 
 type AgencyDetailsProps = {
   data: Partial<Agency>;
@@ -83,7 +85,70 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FileUpload apiEndpoint="agencyLogo" onChange={field.onChange} value={field.value} />
                     </FormControl>
                   </FormItem>
-                )}></FormField>
+                )}
+              />
+              <div className="flex md:flex-row gap-4">
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Agency Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your Agency Name" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="companyEmail"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Agency Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Email" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex md:flex-row gap-4">
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="companyPhone"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Agency Phone Number</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Phone" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                disabled={isLoading}
+                control={form.control}
+                name="whiteLabel"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between border rounded-lg p-4 gap-4">
+                    <div>
+                      <FormLabel>WhiteLabel Agency</FormLabel>
+                      <FormDescription>
+                        Turning on whitelabel mode will show your agency logo to all sub accounts by default.
+                        You can overwrite this functionality through sub account settings.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </form>
           </Form>
         </CardContent>
