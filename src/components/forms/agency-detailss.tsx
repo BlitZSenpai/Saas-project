@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AlertDialog } from "../ui/alert-dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { NumberInput } from "@tremor/react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +14,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { FileUpload } from "../global/file-upload";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
+import { saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
 
 type AgencyDetailsProps = {
   data: Partial<Agency>;
@@ -157,7 +159,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                   <FormItem className="flex-1">
                     <FormLabel>Address</FormLabel>
                     <FormControl>
-                      <Input placeholder="Street number..." {...field} />
+                      <Input placeholder="Street Number..." {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -244,6 +246,31 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                   </FormItem>
                 )}
               />
+              {data.id && (
+                <div className="flex flex-col gap-3">
+                  <FormLabel>Ceate A Goal</FormLabel>
+                  <FormDescription>
+                    🚀 Create a goal for your agency. As your business grows your goals grow too so dont
+                    forget to set the bar higher!
+                  </FormDescription>
+                  <NumberInput
+                    defaultValue={data?.goal}
+                    onValueChange={async (value) => {
+                      if (!data.id) return;
+                      await updateAgencyDetails(data.id, { goal: value });
+                      await saveActivityLogsNotification({
+                        agencyId: data.id,
+                        description: `Updated the agency goal to | ${value} Sub Account`,
+                        subaccountId: undefined,
+                      });
+                      router.refresh();
+                    }}
+                    min={1}
+                    className="bg-background !border !border-input rounded-md"
+                    placeholder="Sub Account Goal"
+                  />
+                </div>
+              )}
             </form>
           </Form>
         </CardContent>
