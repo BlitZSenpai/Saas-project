@@ -1,6 +1,7 @@
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { UploadDropzone } from "@/lib/uploadthing";
 
 type FileUploadProps = {
   apiEndpoint: "agencyLogo" | "avatar" | "subaccountLogo";
@@ -30,12 +31,24 @@ export const FileUpload = ({ apiEndpoint, onChange, value }: FileUploadProps) =>
             </a>
           </div>
         )}
-        <Button onClick={() => onChange} variant="ghost" type="button">
+        <Button onClick={() => onChange("")} variant="ghost" type="button">
           <X className="h-4 w-4" />
           Remove Logo
         </Button>
       </div>
     );
   }
-  return <div></div>;
+  return (
+    <div className="w-full  bg-muted/30">
+      <UploadDropzone
+        endpoint={apiEndpoint}
+        onClientUploadComplete={(res) => {
+          onChange(res?.[0].url);
+        }}
+        onUploadError={(error: Error) => {
+          console.log(error);
+        }}
+      />
+    </div>
+  );
 };
