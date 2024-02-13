@@ -149,6 +149,101 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                   </FormItem>
                 )}
               />
+              <FormField
+                disabled={isLoading}
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Address</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Street number..." {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <div className="flex md:flex-row gap-4">
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Agency Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your Agency Name" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="companyEmail"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Agency Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Email" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex md:flex-row gap-4">
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                        <Input placeholder="City" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="state"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>State</FormLabel>
+                      <FormControl>
+                        <Input placeholder="State" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  disabled={isLoading}
+                  control={form.control}
+                  name="zipCode"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>ZipCode</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ZipCode" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                disabled={isLoading}
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Country</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Country" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </form>
           </Form>
         </CardContent>
