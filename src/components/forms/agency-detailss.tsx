@@ -24,7 +24,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { FileUpload } from "../global/file-upload";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
-import { deleteAgencyById, saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
+import { deleteAgencyById, initUser, saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
 import { Button } from "../ui/button";
 import Loading from "../global/loading";
 
@@ -73,7 +73,36 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
     }
   }, [data]);
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
+    try {
+      let newUserData;
+      let custId;
+      if (!data?.id) {
+        const bodyData = {
+          email: values.companyEmail,
+          name: values.name,
+          shipping: {
+            address: {
+              city: values.city,
+              country: values.country,
+              line1: values.address,
+              postal_code: values.zipCode,
+              state: values.zipCode,
+            },
+            name: values.name,
+          },
+          address: {
+            city: values.city,
+            country: values.country,
+            line1: values.address,
+            postal_code: values.zipCode,
+            state: values.zipCode,
+          },
+        };
+      }
+      newUserData = await initUser({ role: "AGENCY_OWNER" });
+    } catch {}
+  };
   const handleDeleteAgency = async () => {
     if (!data.id) return;
     setDeleteAgency(true);
