@@ -24,8 +24,15 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { FileUpload } from "../global/file-upload";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
-import { deleteAgencyById, initUser, saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
+import {
+  deleteAgencyById,
+  initUser,
+  saveActivityLogsNotification,
+  updateAgencyDetails,
+  upsertAgency,
+} from "@/lib/queries";
 import { Button } from "../ui/button";
+import { v4 } from "uuid";
 import Loading from "../global/loading";
 
 type AgencyDetailsProps = {
@@ -76,7 +83,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       let newUserData;
-      let custId;
+      let customerId;
       if (!data?.id) {
         const bodyData = {
           email: values.companyEmail,
@@ -101,7 +108,41 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
         };
       }
       newUserData = await initUser({ role: "AGENCY_OWNER" });
-    } catch {}
+      if (!data.customerId) {
+        const response = await upsertAgency({
+          id: data?.id ? data.id : v4(),
+          customerId: data?.customerId || "",
+          address: values.address,
+          agencyLogo: values.agencyLogo,
+          city: values.city,
+          companyPhone: values.companyPhone,
+          country: values.country,
+          name: values.name,
+          state: values.state,
+          whiteLabel: values.whiteLabel,
+          zipCode: values.zipCode,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          companyEmail: values.companyEmail,
+          connectAccountId: "",
+          goal: 5,
+        });
+        toast({
+          title: "Agency Created",
+        });
+
+        if (data.id) return router.refresh();
+        if (response) {
+          return router.refresh();
+        }
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong!",
+        description: "Please try again...",
+      });
+    }
   };
   const handleDeleteAgency = async () => {
     if (!data.id) return;
