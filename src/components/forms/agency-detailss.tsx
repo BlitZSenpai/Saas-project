@@ -4,7 +4,7 @@ import { Agency } from "@prisma/client";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AlertDialog } from "../ui/alert-dialog";
+import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { NumberInput } from "@tremor/react";
 import * as z from "zod";
@@ -15,6 +15,8 @@ import { FileUpload } from "../global/file-upload";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
 import { saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
+import { Button } from "../ui/button";
+import Loading from "../global/loading";
 
 type AgencyDetailsProps = {
   data: Partial<Agency>;
@@ -67,7 +69,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
     <AlertDialog>
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Agenncy Information</CardTitle>
+          <CardTitle>Agency Information</CardTitle>
           <CardDescription>
             Lets create an agency for your business. You can edit agency settings later from the agency
             settings tab.
@@ -271,8 +273,26 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                   />
                 </div>
               )}
+              <Button disabled={isLoading} type="submit">
+                {isLoading ? <Loading /> : "Save Agency Information"}
+              </Button>
             </form>
           </Form>
+          {data.id && (
+            <div className="flex flex-row items-center justify-between rounded-lg border border-destructive gap-4 p-4 mt-4">
+              <p className="text-center">Danger Zone</p>
+              <div className="text-muted-foreground">
+                Deleting your agency cannpt be undone. This will also delete all sub accounts and all data
+                related to your sub accounts. Sub accounts will no longer have access to funnels, contacts
+                etc.
+              </div>
+              <AlertDialogTrigger
+                disabled={isLoading || deleteAgency}
+                className="text-red-600 p-2 text-center rounded-md hover:bg-red-600 hover:text-white whitespace-nowrap transition-colors">
+                {!deleteAgency ? "Delete Agency" : "Deleting..."}
+              </AlertDialogTrigger>
+            </div>
+          )}
         </CardContent>
       </Card>
     </AlertDialog>
