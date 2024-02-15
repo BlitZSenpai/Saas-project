@@ -197,3 +197,13 @@ export const updateAgencyDetails = async (agencyId: string, agencyDetails: Parti
 
   return response;
 };
+
+export const deleteAgencyById = async (agencyId: string) => {
+  const response = await db.agency.delete({
+    where: {
+      id: agencyId,
+    },
+  });
+
+  return response;
+};

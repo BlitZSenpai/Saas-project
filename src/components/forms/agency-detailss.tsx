@@ -4,7 +4,17 @@ import { Agency } from "@prisma/client";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { NumberInput } from "@tremor/react";
 import * as z from "zod";
@@ -14,7 +24,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { FileUpload } from "../global/file-upload";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
-import { saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
+import { deleteAgencyById, saveActivityLogsNotification, updateAgencyDetails } from "@/lib/queries";
 import { Button } from "../ui/button";
 import Loading from "../global/loading";
 
@@ -64,6 +74,26 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
   }, [data]);
 
   const handleSubmit = async () => {};
+  const handleDeleteAgency = async () => {
+    if (!data.id) return;
+    setDeleteAgency(true);
+
+    try {
+      await deleteAgencyById(data.id);
+      toast({
+        title: "Deleted Agency",
+        description: "Deleted your agency and all subaccounts",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong!",
+        description: "Please try again...",
+      });
+    }
+
+    setDeleteAgency(false);
+  };
 
   return (
     <AlertDialog>
@@ -293,6 +323,24 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
               </AlertDialogTrigger>
             </div>
           )}
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-left">Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription className="text-left">
+                This action cannot be undone. This will permanently delete the Agency account and all related
+                sub accounts.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter className="flex items-center">
+              <AlertDialogCancel className="mb-2">Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                disabled={deleteAgency}
+                className="bg-destructive hover:bg-destructive"
+                onClick={handleDeleteAgency}>
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
         </CardContent>
       </Card>
     </AlertDialog>
