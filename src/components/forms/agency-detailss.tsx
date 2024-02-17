@@ -20,7 +20,7 @@ import { NumberInput } from "@tremor/react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "../ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { FileUpload } from "../global/file-upload";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
@@ -186,6 +186,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                     <FormControl>
                       <FileUpload apiEndpoint="agencyLogo" onChange={field.onChange} value={field.value} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -200,6 +201,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FormControl>
                         <Input placeholder="Your Agency Name" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -213,6 +215,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FormControl>
                         <Input placeholder="Email" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -228,6 +231,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FormControl>
                         <Input placeholder="Phone" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -261,6 +265,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                     <FormControl>
                       <Input placeholder="Street Number..." {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -275,6 +280,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FormControl>
                         <Input placeholder="City" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -288,6 +294,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FormControl>
                         <Input placeholder="State" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -301,6 +308,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                       <FormControl>
                         <Input placeholder="ZipCode" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -315,6 +323,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                     <FormControl>
                       <Input placeholder="Country" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
