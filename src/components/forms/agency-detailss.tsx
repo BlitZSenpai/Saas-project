@@ -109,7 +109,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
       }
       newUserData = await initUser({ role: "AGENCY_OWNER" });
       if (!data.customerId) {
-        const response = await upsertAgency({
+        await upsertAgency({
           id: data?.id ? data.id : v4(),
           customerId: data?.customerId || "",
           address: values.address,
@@ -131,10 +131,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
           title: "Agency Created",
         });
 
-        if (data.id) return router.refresh();
-        if (response) {
-          return router.refresh();
-        }
+        router.refresh();
       }
     } catch (error) {
       toast({
@@ -144,6 +141,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
       });
     }
   };
+
   const handleDeleteAgency = async () => {
     if (!data.id) return;
     setDeleteAgency(true);
@@ -266,34 +264,6 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
                   </FormItem>
                 )}
               />
-              <div className="flex md:flex-row gap-4">
-                <FormField
-                  disabled={isLoading}
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>Agency Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your Agency Name" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  disabled={isLoading}
-                  control={form.control}
-                  name="companyEmail"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>Agency Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Email" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
               <div className="flex md:flex-row gap-4">
                 <FormField
                   disabled={isLoading}
