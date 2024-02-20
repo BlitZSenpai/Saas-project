@@ -1,6 +1,7 @@
 import { getAuthUserDetails } from "@/lib/queries";
 import { BrainCircuit } from "lucide-react";
 import React from "react";
+import MenuOptions from "./menu-options";
 
 type SidebarProps = {
   id: string;
@@ -31,8 +32,28 @@ const Sidebar = async ({ id, type }: SidebarProps) => {
   const sidebarOptions =
     type === "agency" ? user.Agency.SidebarOption || [] : userSubaccount?.SidebarOption || [];
 
-  const subaccount = user.Agency.SubAccount.filter((subaccount) =>
+  const subaccounts = user.Agency.SubAccount.filter((subaccount) =>
     user.Permissions.find((permission) => permission.subAccountId === subaccount.id && permission.access)
   );
-  return <div>Sidebar</div>;
+  return (
+    <>
+      <MenuOptions
+        defaultOpen={true}
+        details={details}
+        id={id}
+        sidebarLogo={sidebarLogo}
+        sidebarOptions={sidebarOptions}
+        subAccounts={subaccounts}
+        user={user}
+      />
+      <MenuOptions
+        details={details}
+        id={id}
+        sidebarLogo={sidebarLogo}
+        sidebarOptions={sidebarOptions}
+        subAccounts={subaccounts}
+        user={user}
+      />
+    </>
+  );
 };
