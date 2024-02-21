@@ -1,5 +1,6 @@
+import { Sidebar } from "@/components/sidebar";
 import { Unauthorized } from "@/components/unauthorized";
-import { verifyAndAcceptInvitation } from "@/lib/queries";
+import { getNotificationAndUser, verifyAndAcceptInvitation } from "@/lib/queries";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -18,6 +19,16 @@ const AgencyIdLayout = async ({ children, params }: AgencyIdLayoutProps) => {
   if (user.privateMetadata.role !== "AGENCY_OWNER" && user.privateMetadata.role !== "AGENCY_ADMIN") {
     return <Unauthorized />;
   }
+
+  let allNotifications: any = [];
+  const notifications = await getNotificationAndUser(agencyId);
+  if (notifications) allNotifications = notifications;
+
+  return (
+    <div>
+      <Sidebar id={params.agencyId} type="agency" />
+    </div>
+  );
 };
 
 export default AgencyIdLayout;

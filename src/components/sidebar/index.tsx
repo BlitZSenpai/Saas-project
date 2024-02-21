@@ -8,7 +8,7 @@ type SidebarProps = {
   type: "agency" | "subaccount";
 };
 
-const Sidebar = async ({ id, type }: SidebarProps) => {
+export const Sidebar = async ({ id, type }: SidebarProps) => {
   const user = await getAuthUserDetails();
 
   if (!user) return;
