@@ -291,3 +291,23 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
     throw new Error("Something went wrong!");
   }
 };
+
+export const getNotificationAndUser = async (agencyId: string) => {
+  try {
+    const notifications = await db.notification.findMany({
+      where: {
+        agencyId,
+      },
+      include: {
+        User: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return notifications;
+  } catch {
+    throw new Error("Not found");
+  }
+};
