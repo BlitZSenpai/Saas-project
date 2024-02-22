@@ -27,6 +27,7 @@ const AgencyIdLayout = async ({ children, params }: AgencyIdLayoutProps) => {
   return (
     <div>
       <Sidebar id={params.agencyId} type="agency" />
+      <div className="md:pl-[300px]">{children}</div>
     </div>
   );
 };

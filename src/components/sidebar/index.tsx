@@ -22,7 +22,7 @@ export const Sidebar = async ({ id, type }: SidebarProps) => {
 
   const whiteLabeledAgency = user.Agency.whiteLabel;
 
-  let sidebarLogo = user.Agency.agencyLogo || BrainCircuit;
+  let sidebarLogo = user.Agency.agencyLogo || "/assets/logo.svg";
   if (!whiteLabeledAgency) {
     if (type === "subaccount") {
       sidebarLogo = userSubaccount?.subAccountLogo || user.Agency.agencyLogo;
