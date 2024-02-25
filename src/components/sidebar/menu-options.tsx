@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AgencySidebarOption, SubAccount, SubAccountSidebarOption } from "@prisma/client";
-import { ChevronsUpDown, Menu } from "lucide-react";
+import { ChevronsUpDown, Menu, PlusCircleIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Compass from "../icons/compass";
@@ -165,6 +165,12 @@ const MenuOptions = ({
                       : "No Accounts"}
                   </CommandGroup>
                 </CommandList>
+                {(user.role === "AGENCY_OWNER" || user.role === "AGENCY_ADMIN") && (
+                  <Button className="w-full flex gap-2">
+                    <PlusCircleIcon size={15} />
+                    Create Sub Account
+                  </Button>
+                )}
               </Command>
             </PopoverContent>
           </Popover>
