@@ -78,6 +78,7 @@ export const AgencyDetails = ({ data }: AgencyDetailsProps) => {
     if (data) {
       form.reset(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {

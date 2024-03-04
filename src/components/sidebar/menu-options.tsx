@@ -15,6 +15,8 @@ import Link from "next/link";
 import { useModal } from "@/providers/modal-provider";
 import { CustomModal } from "../global/custom-modal";
 import SubAccountDetails from "../forms/subaccount-details";
+import { Separator } from "../ui/separator";
+import { icons } from "@/lib/constants";
 
 type MenuOptionsProps = {
   defaultOpen?: boolean;
@@ -194,6 +196,37 @@ const MenuOptions = ({
               </Command>
             </PopoverContent>
           </Popover>
+          <p className="text-muted-foreground text-xs mb-2">MENU LINKS</p>
+          <Separator className="mb-4" />
+          <nav className="relative">
+            <Command className="rounded-lg overflow-visible bg-transparent">
+              <CommandInput placeholder="Search..." />
+              <CommandList className="pb-12 overflow-visible">
+                <CommandEmpty>No Results Found</CommandEmpty>
+                <CommandGroup className="overflow-visible">
+                  {sidebarOptions.map((options) => {
+                    let val;
+                    const result = icons.find((icon) => icon.value === options.icon);
+
+                    if (result) {
+                      val = <result.path />;
+                    }
+
+                    return (
+                      <CommandItem key={options.id} className="md:w-[320px] w-full">
+                        <Link
+                          href={options.link}
+                          className="hover:bg-transparent rounded-md flex items-center gap-2 transition-all md:w-full w-[320px]">
+                          {val}
+                          <span>{options.name}</span>
+                        </Link>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </nav>
         </div>
       </SheetContent>
     </Sheet>
