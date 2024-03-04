@@ -7,7 +7,7 @@ type CustomModalProps = {
   children: React.ReactNode;
   title: string;
   subheading: string;
-  defaultOpen: boolean;
+  defaultOpen?: boolean;
 };
 
 export const CustomModal = ({ children, title, subheading, defaultOpen }: CustomModalProps) => {

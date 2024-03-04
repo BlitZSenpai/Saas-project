@@ -82,6 +82,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
         connectAccountId: "",
         goal: 5000,
       });
+
       if (!response) throw new Error("No response from server");
       await saveActivityLogsNotification({
         agencyId: response.agencyId,
@@ -109,6 +110,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
     if (details) {
       form.reset(details);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [details]);
 
   const isLoading = form.formState.isSubmitting;
