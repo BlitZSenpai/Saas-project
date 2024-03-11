@@ -1,3 +1,4 @@
+import BlurPage from "@/components/global/blue-page";
 import { Sidebar } from "@/components/sidebar";
 import { Unauthorized } from "@/components/unauthorized";
 import { getNotificationAndUser, verifyAndAcceptInvitation } from "@/lib/queries";
@@ -27,7 +28,11 @@ const AgencyIdLayout = async ({ children, params }: AgencyIdLayoutProps) => {
   return (
     <div>
       <Sidebar id={params.agencyId} type="agency" />
-      <div className="md:pl-[300px]">{children}</div>
+      <div className="md:pl-[300px]">
+        <div className="relative">
+          <BlurPage>{children}</BlurPage>
+        </div>
+      </div>
     </div>
   );
 };
